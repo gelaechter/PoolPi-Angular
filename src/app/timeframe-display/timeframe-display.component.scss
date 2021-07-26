@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    height: 30px;
+    border: 1px solid #9C9C9C;
+    border-width: 1px 0px 1px 0px;
+    align-items: flex-end;
+}
+
+.quarter {
+    height: 100%;
+    width: 130px;
+}
+
+.hour-divider {
+    height: 100%;
+    width: 1px;
+    background-color: #9C9C9C;
+    overflow: visible;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.quarter-hour-divider {
+    height: 25%;
+    width: 1px;
+    background-color: #9C9C9C;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.half-hour-divider {
+    height: 50%;
+    width: 1px;
+    background-color: #9C9C9C;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.hour-number {
+    position: relative;
+    left: -19px;
+    top: 100%;
+    width: 40px;
+    text-align: center;
+}

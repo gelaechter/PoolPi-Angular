@@ -1,0 +1,19 @@
+<span style="font-weight: bold">Filtern</span>
+
+<mdb-form-control>
+    <input mdbInput class="form-control" id="form1" [ngxTimepicker]="startTime" [format]="24" readonly>
+    <label mdbLabel class="form-label" for="form1">Start Zeit</label>
+    <ngx-material-timepicker #startTime [minutesGap]="5"></ngx-material-timepicker>
+</mdb-form-control>
+
+<mdb-form-control>
+    <input mdbInput class="form-control" id="form1" [ngxTimepicker]="stopTime" [format]="24" readonly>
+    <label mdbLabel class="form-label" for="form1">Stop Zeit</label>
+    <ngx-material-timepicker #stopTime [minutesGap]="5"></ngx-material-timepicker>
+</mdb-form-control>
+
+<button mdbRipple class="btn btn-danger btn-floating" type="button" style="background-image: url('/assets/img/alternate-trash.svg');
+        background-repeat:no-repeat;
+        background-position: center center;
+        background-size: 60%;
+        "></button>
