@@ -20,7 +20,7 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TimeframeDisplayComponent } from './timeframe-display/timeframe-display.component';
+import { SchduleDisplayComponent } from './schedule-display/schedule-display.component';
 import { ListComponent } from './list/list.component';
 import { DosingListItemComponent } from './dosing-list-item/dosing-list-item.component';
 import { TimingListItemComponent } from './timing-list-item/timing-list-item.component';
@@ -30,17 +30,25 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { DosageInputComponent } from './dosage-input/dosage-input.component';
 import { NumpadPopupComponent } from './numpad-popup/numpad-popup.component';
 import { QuickDoseButtonComponent } from './quick-dose-button/quick-dose-button.component';
+import { SchedulerIndicatorComponent } from './overview/scheduler-indicator/scheduler-indicator.component';
+import { ChlorineButtonComponent } from './chlorine-button/chlorine-button.component';
+import { HeaterButtonComponent } from './heater-button/heater-button.component';
+import { FilterButtonComponent } from './filter-button/filter-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TimeframeDisplayComponent,
+    SchduleDisplayComponent,
     ListComponent,
     DosingListItemComponent,
     TimingListItemComponent,
     DosageInputComponent,
     NumpadPopupComponent,
     QuickDoseButtonComponent,
+    SchedulerIndicatorComponent,
+    ChlorineButtonComponent,
+    HeaterButtonComponent,
+    FilterButtonComponent,
   ],
   imports: [
     BrowserModule,

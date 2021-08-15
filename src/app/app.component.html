@@ -6,13 +6,7 @@
                 style="text-align: center; height: 100%;">
                 <p class="d-flex d-xl-flex align-items-center align-items-xl-center small mt-3"
                     style="color: var(--mdb-success);"><i class="material-icons">timer</i>Zeitsteuerung Aktiv</p>
-                <button mdbRipple class="btn btn-danger btn-square-xl font-weight-bold" type="button" style="background-image: url('/assets/img/biohazard.svg');
-                background-repeat:no-repeat;
-                background-position: center center;
-                background-size: 80%;
-                ">
-                    Jetzt Chloren
-                </button>
+                <app-chlorine-button></app-chlorine-button>
                 <p class="small text-muted mt-3">
                     Nächste Chlorung in 2 Stunden
                 </p>
@@ -21,14 +15,7 @@
                 style="text-align: center; height: 100%; position: relative;">
                 <p class="d-flex d-xl-flex align-items-center align-items-xl-center small mt-3"
                     style="color: var(--mdb-danger);"><i class="material-icons">timer_off</i>Zeitsteuerung Inaktiv</p>
-                <button mdbRipple class="btn btn-danger btn-square-xl font-weight-bold" type="button"
-                style="background-image: url('/assets/img/radiator.svg');
-                background-repeat:no-repeat;
-                background-position: center center;
-                background-size: 80%;
-                ">
-                    Heizung Anschalten
-                </button>
+                <app-heater-button></app-heater-button>
                 <p class="small text-muted mt-3">
                     Automatischer Start in 5 Stunden
                 </p>
@@ -37,14 +24,7 @@
                 style="text-align: center; height: 100%;">
                 <p class="d-flex d-xl-flex align-items-center align-items-xl-center small mt-3"
                     style="color: var(--mdb-success);"><i class="material-icons">timer</i>Zeitsteuerung Aktiv</p>
-                <button mdbRipple class="btn btn-danger btn-square-xl font-weight-bold" type="button"
-                style="background-image: url('/assets/img/air-filter.svg');
-                background-repeat:no-repeat;
-                background-position: center center;
-                background-size: 80%;
-                ">
-                    Filter Anschalten
-                </button>
+                <app-filter-button></app-filter-button>
                 <p class="small text-muted mt-3">
                     Automatischer Start in 5 Stunden
                 </p>
@@ -109,7 +89,7 @@
                 </div>
                 <div class="row flex-grow-1 overflow-hidden" style="width: 100%;">
                     <div class="col" style="height: 100%;">
-                        <app-list>
+                        <app-list target="">
 
                         </app-list>
                     </div>
@@ -144,18 +124,9 @@
                 </div>
                 <div class="row flex-grow-1 overflow-hidden" style="width: 100%;">
                     <div class="col" style="height: 100%;">
-                        <ul class="list-group" style="height: 100%; overflow-y: auto;">
-                            <li
-                                class="list-group-item d-flex flex-row flex-shrink-0 justify-content-between align-items-center justify-content-xl-center align-items-xl-center">
-                                <span style="font-weight: bold;">Filtern</span>
-                                <div class="form-outline"><input type="text" id="form-2" class="form-control" /><label
-                                        class="form-label" for="form1">Start</label></div>
-                                <div class="form-outline"><input type="text" id="form-3" class="form-control" /><label
-                                        class="form-label" for="form1">Stop</label></div>
-                                <button class="btn btn-danger btn-floating" type="button"
-                                    style="background: url('/assets/img/alternate-trash.svg') center / 60% no-repeat, var(--mdb-danger); color: var(--mdb-danger);"></button>
-                            </li>
-                        </ul>
+                        <app-list target="">
+
+                        </app-list>
                     </div>
                 </div>
             </div>
