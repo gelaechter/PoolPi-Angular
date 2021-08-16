@@ -7,7 +7,7 @@ import { Time, toJSON } from "./data"
     providedIn: 'root',
 })
 export class WebsocketService {
-    private socket = webSocket("ws://localhost:8081");
+    private socket = webSocket("ws://192.168.178.50:8081");
 
     public poolActions: PoolActions = new PoolActions(this);
 
@@ -37,7 +37,7 @@ export class WebsocketService {
         switch(message.key){
             case Keys.POOLDATA:
                 this.dataService.updatePool(message.data);
-                break;
+                console.log(message.data);
         }
     }
 
@@ -50,29 +50,33 @@ export class WebsocketService {
     }
 }
 
+
 export enum PoolCommands {
-    QUICK_DOSE = "quickDose",   //args = dose_ml: number
-    HEATER_ON = "heaterOn",     //args = on: boolean
-    FILTER_ON = "filterOn",     //args = on: boolean
+    HEATER_ON = "heaterOn",
+    FILTER_ON = "filterOn",
+    CHLORINE_ON = "chlorineOn",
 
-    SCHEDULE_CHLORINE = "scheduleChlorine", //args = scheduled: boolean
-    SCHEDULE_HEATER = "scheduleHeater",     //args = scheduled: boolean
-    SCHEDULE_FILTER = "scheduleFilter",     //args = scheduled: boolean
+    SCHEDULE_CHLORINE = "scheduleChlorine",
+    SCHEDULE_HEATER = "scheduleHeater",
+    SCHEDULE_FILTER = "scheduleFilter",
 
-    ADD_CHLORINE_TIME = "addChlorineTime",  //args = startMinutes: number, dose_ml: number
-    ADD_HEATER_TIME = "addHeaterTime",      //args = startMinutes: number, stopMinutes: number
-    ADD_FILTER_TIME = "addFilterTime",      //args = startMinutes: number, stopMinutes: number
+    ADD_CHLORINE_TIME = "addChlorineTime",
+    ADD_HEATER_TIME = "addHeaterTime",
+    ADD_FILTER_TIME = "addFilterTime",
 
-    REMOVE_CHLORINE_TIME = "removeChlorineTime",    //args = startMinutes: number
-    REMOVE_HEATER_TIME = "removeHeaterTime",        //args = startMinutes: number
-    REMOVE_FILTER_TIME = "removeFilterTime",        //args = startMinutes: number
+    REMOVE_CHLORINE_TIME = "removeChlorineTime",
+    REMOVE_HEATER_TIME = "removeHeaterTime",
+    REMOVE_FILTER_TIME = "removeFilterTime",
+
+    QUICK_DOSE = "quickDose",
+    CHANGE_DOSES = "changeDoses"
 }
 
 class PoolActions {
     constructor(private webSocketService: WebsocketService) { }
 
-    public quickDose(dose_ml: number){
-        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.QUICK_DOSE, [dose_ml]);
+    public chlorineOn(on: boolean) {
+        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.CHLORINE_ON, [on]);
     }
 
     public heaterOn(on: boolean) {
@@ -118,6 +122,14 @@ class PoolActions {
     public removeFilterTime(start: Time) {
         this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.REMOVE_FILTER_TIME, [start]);
     }
+
+    public quickDose(dose_ml: number){
+        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.QUICK_DOSE, [dose_ml]);
+    }
+
+    public changeDoses(doses: number[]){
+        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.CHANGE_DOSES, [doses])
+    }
 }
 
 
@@ -133,6 +145,9 @@ export class PoolSocketData {
     chlorineTimings: Map<Time, number>;
     heaterTimings: Map<Time, Time>;
     filterTimings: Map<Time, Time>;
+
+    quickDoseTime: Time;
+    doses: number[];
 }
 
 export enum Keys {

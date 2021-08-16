@@ -1,7 +1,12 @@
-<button mdbRipple class="btn btn-danger btn-square-xl font-weight-bold" type="button" style="background-image: url('/assets/img/biohazard.svg');
+<button mdbRipple (click)="onClickButton()" class="btn btn-danger btn-square-xl font-weight-bold" type="button" style="background-image: url('/assets/img/biohazard.svg');
                 background-repeat:no-repeat;
                 background-position: center center;
                 background-size: 80%;
                 ">
-    Jetzt Chloren
+    <div *ngIf="!chlorineOn; else elseBlock">
+        Jetzt Chloren <br> ({{dose_ml}} ml)
+    </div>
+    <ng-template #elseBlock>
+        Chlorung Stoppen
+    </ng-template>
 </button>

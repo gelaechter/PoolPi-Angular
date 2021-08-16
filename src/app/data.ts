@@ -21,9 +21,9 @@ export class Time {
     }
 
     public get text() {
-        var hours = this.time / 60;
-        var minutes = this.time % 60;
-        return hours + ':' + minutes;
+        var hours = Math.floor(this.minutes / 60);
+        var minutes = this.minutes % 60;
+        return String(hours).padStart(2, "0") + ':' + String(minutes).padStart(2, "0")
     }
 
     public set minutes(minutes: number) {
@@ -48,9 +48,9 @@ export class Time {
     }
 
     public subtract(time: Time): Time {
-        var time: Time = new Time(this.minutes - time.minutes);
-        if (time.minutes < 0) time = new Time(1440 - time.minutes);
-        return time;
+        var minutes: number = this.minutes - time.minutes;
+        if (minutes < 0) minutes = 1440 - time.minutes;
+        return new Time(minutes);
     }
 
     public fromNow(): Time {

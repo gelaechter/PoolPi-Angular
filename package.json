@@ -3,7 +3,7 @@
   "version": "0.0.1-alpha",
   "main": "app.js",
   "scripts": {
-    "start": "ng serve",
+    "start": "ng --host serve",
     "build": "ng build --watch --configuration development",
     "test": "ng test",
     "electron": "ng build --base-href ./ --configuration production && electron --disable-gpu ."
