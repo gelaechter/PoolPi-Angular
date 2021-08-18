@@ -3,9 +3,9 @@
                 background-position: center center;
                 background-size: 80%;
                 ">
-    <div *ngIf="!chlorineOn; else elseBlock">
+    <ng-container *ngIf="!chlorineOn; else elseBlock">
         Jetzt Chloren <br> ({{dose_ml}} ml)
-    </div>
+    </ng-container>
     <ng-template #elseBlock>
         Chlorung Stoppen
     </ng-template>

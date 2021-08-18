@@ -88,6 +88,20 @@ export enum Section {
     Filter,
 }
 
+/**
+ * Function to check if a point in time is scheduled by a timing Map.
+ * Basically checks all timeframes of a map if they include the time.
+ *
+ * @param  {Time} time The time to check
+ * @param  {Map<Time, Time>} timings The timing map to check against
+ * @return {boolean} True if time is contained in a timing map, false if not
+ */
+export function isScheduled(time: Time, timings: Map<Time, Time>): boolean {
+    for (const [startTime, stopTime] of timings.entries()) {
+        if (isInTimeframe(time, startTime, stopTime)) return true;
+    }
+    return false;
+}
 
 /**
  * Function to check if a Time is within a timeframe, hence inbetween start and stop
@@ -99,9 +113,9 @@ export enum Section {
  */
 export function isInTimeframe(time: Time, start: Time, stop: Time): boolean {
     //Check if the timeframe is simple or loops around a day
-    if (stop.minutes < start.minutes) {
+    if (start.minutes > stop.minutes) { // if stop is before start it loops
         //check if the point in time happens after start or before stop
-        return (time.minutes > start.minutes || time.minutes < stop.minutes);
+        return (time.minutes >= start.minutes || time.minutes <= stop.minutes);
     } else {
         //Check if the point in time is inbetween
         return (time.minutes >= start.minutes && time.minutes <= stop.minutes);
@@ -136,6 +150,11 @@ function replacer(key, value) {
             dataType: 'Map',
             value: Array.from(value.entries()), // or with spread: value: [...value]
         };
+    } else if (value instanceof Time) {
+        return {
+            dataType: 'Time',
+            minutes: value.minutes,
+        };
     } else {
         return value;
     }
@@ -146,6 +165,8 @@ function reviver(key, value) {
     if (typeof value === 'object' && value !== null) {
         if (value.dataType === 'Map') {
             return new Map(value.value);
+        }else if(value.dataType === 'Time') {
+            return new Time(value.minutes);
         }
     }
     return value;

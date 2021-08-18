@@ -1,40 +1,35 @@
+import { BehaviorSubject } from 'rxjs';
 import { DataService } from './data.service';
 import { Injectable } from "@angular/core";
-import { webSocket } from "rxjs/webSocket";
-import { Time, toJSON } from "./data"
+import Sockette from 'sockette';
+import { fromJSON, Time, toJSON } from "./data"
 
 @Injectable({
     providedIn: 'root',
 })
 export class WebsocketService {
-    private socket = webSocket("ws://192.168.178.50:8081");
+
+    public connected: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+    private socket = new Sockette("ws://192.168.178.50:8081", {
+        timeout: 2000, //ms until retry
+        // maxAttempts: 10,
+        onopen: e => { console.log('Connected!', e); this.connected.next(true); },
+        onmessage: e => this.onMessage(fromJSON(e.data)),
+        onreconnect: e => console.log('Reconnecting...', e),
+        // onmaximum: e => console.log('Stop Attempting!', e),
+        onclose: e => this.connected.next(false),
+        onerror: e => this.connected.next(false)
+    });
+
 
     public poolActions: PoolActions = new PoolActions(this);
 
-    constructor(private dataService: DataService) {
-        this.connect();
-    }
-
-    public connect() {
-        this.socket.subscribe(message => this.onMessage(message));
-        console.log("Connected websocket")
-    }
-
-    private send(message: any) {
-        this.socket.next(message);
-    }
-
-    public close() {
-        this.socket.complete();
-    }
-
-    public error(code: number, reason: string) {
-        this.socket.error({ code: code, reason: reason });
-    }
+    constructor(private dataService: DataService) {}
 
     private onMessage(message: any) {
         // Websocket Data always starts with a key and then the data itself
-        switch(message.key){
+        switch (message.key) {
             case Keys.POOLDATA:
                 this.dataService.updatePool(message.data);
                 console.log(message.data);
@@ -42,7 +37,7 @@ export class WebsocketService {
     }
 
     public sendCommand(key: Keys, command: any, args: any[]) {
-        this.send(toJSON({
+        this.socket.send(toJSON({
             key: key.toString(),
             command: command,
             args: args
@@ -123,11 +118,11 @@ class PoolActions {
         this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.REMOVE_FILTER_TIME, [start]);
     }
 
-    public quickDose(dose_ml: number){
+    public quickDose(dose_ml: number) {
         this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.QUICK_DOSE, [dose_ml]);
     }
 
-    public changeDoses(doses: number[]){
+    public changeDoses(doses: number[]) {
         this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.CHANGE_DOSES, [doses])
     }
 }

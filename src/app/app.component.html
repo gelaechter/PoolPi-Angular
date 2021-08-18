@@ -146,4 +146,12 @@
             </div>
         </div>
     </mdb-tab>
+    <mdb-tab [disabled]="true">
+        <ng-template mdbTabTitle>
+            <span>
+                    {{connected ? "Verbunden" : "Verbindung getrennt"}}
+                    <i [style.color]="connected ? 'var(--mdb-success)' : 'var(--mdb-danger)'" class="fas fa-circle"></i>
+            </span>
+        </ng-template>
+    </mdb-tab>
 </mdb-tabs>

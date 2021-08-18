@@ -25,6 +25,7 @@
     "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~6.6.0",
     "simple-keyboard": "^3.2.26",
+    "sockette": "^2.0.6",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
   },

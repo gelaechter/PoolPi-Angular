@@ -1,4 +1,4 @@
-import { Time } from './../data';
+import { isScheduled, Time } from './../data';
 import { Component, OnInit } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { DataService } from '../data.service';

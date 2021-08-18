@@ -39,9 +39,9 @@ mdb-tabs,
     text-align: center;
     padding: 0px;
     font-size: 7px;
-  }
+}
 
-  .btn-square-md {
+.btn-square-md {
     width: 100px !important;
     max-width: 100% !important;
     max-height: 100% !important;
@@ -49,9 +49,9 @@ mdb-tabs,
     text-align: center;
     padding: 0px;
     font-size: 12px;
-  }
+}
 
-  .btn-square-lg {
+.btn-square-lg {
     width: 150px !important;
     max-width: 100% !important;
     max-height: 100% !important;
@@ -59,9 +59,9 @@ mdb-tabs,
     text-align: center;
     padding: 0px;
     font-size: 18px;
-  }
+}
 
-  .btn-square-xl {
+.btn-square-xl {
     width: 200px !important;
     max-width: 100% !important;
     max-height: 100% !important;
@@ -69,54 +69,59 @@ mdb-tabs,
     text-align: center;
     padding: 0px;
     font-size: 24px;
-  }
+}
 
-  /* Style for Extra Large Screen */
+/* Style for Extra Large Screen */
 
-  @media (max-width:3920px) {
+@media (max-width:3920px) {
     .btn-sq-responsive {
-      width: 200px !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      height: 200px !important;
-      font-size: 24px;
+        width: 200px !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: 200px !important;
+        font-size: 24px;
     }
-  }
+}
 
-  /* Style for Large Screen */
+/* Style for Large Screen */
 
-  @media (max-width:991px) {
+@media (max-width:991px) {
     .btn-sq-responsive {
-      width: 150px !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      height: 150px !important;
-      font-size: 18px;
+        width: 150px !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: 150px !important;
+        font-size: 18px;
     }
-  }
+}
 
-  /* Style for Medium Screen */
+/* Style for Medium Screen */
 
-  @media (max-width:767px) {
+@media (max-width:767px) {
     .btn-sq-responsive {
-      width: 100px !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      height: 100px !important;
-      font-size: 12px;
+        width: 100px !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: 100px !important;
+        font-size: 12px;
     }
-  }
+}
 
-  /* Style for Small Screen */
+/* Style for Small Screen */
 
-  @media (max-width:575px) {
+@media (max-width:575px) {
     .btn-sq-responsive {
-      width: 50px !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      height: 50px !important;
-      font-size: 5px;
-      padding: 0px;
-      font-size: 7px;
+        width: 50px !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        height: 50px !important;
+        font-size: 5px;
+        padding: 0px;
+        font-size: 7px;
     }
-  }
+}
+
+// This causes the last tab to be aligned right
+mdb-tabs > ul > li:last-child {
+    margin-left: auto;
+}

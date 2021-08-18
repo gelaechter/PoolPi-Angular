@@ -1,7 +1,7 @@
-:host {
+:host, .host, canvas {
     display: flex;
+    flex-grow: 1;
     height: 30px;
-    border: 1px solid #9C9C9C;
     border-width: 1px 0px 1px 0px;
     align-items: flex-end;
 }
@@ -39,7 +39,7 @@
 .hour-number {
     position: relative;
     left: -19px;
-    top: 100%;
+    top: 110%;
     width: 40px;
     text-align: center;
 }
