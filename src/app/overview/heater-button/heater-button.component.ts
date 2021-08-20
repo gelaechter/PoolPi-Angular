@@ -1,7 +1,7 @@
+import { DataService } from './../../data.service';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { WebsocketService } from './../websocket.service';
-import { DataService } from './../data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { WebsocketService } from 'src/app/websocket.service';
 
 @Component({
     selector: 'app-heater-button',
@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./heater-button.component.scss']
 })
 export class HeaterButtonComponent implements OnInit {
+
+    @Input() size: string = "xl";
 
     heaterOn: boolean;
 

@@ -1,0 +1,15 @@
+<span style="font-weight: bold;">Chlorung</span>
+
+<mdb-form-control>
+    <input mdbInput class="form-control" [id]="id1" [ngxTimepicker]="timePicker" [format]="24" [value]="timeValue" [readonly]="true" [disabled]="!scheduled">
+    <label mdbLabel class="form-label" [for]="id1">Start Zeit</label>
+    <ngx-material-timepicker (timeSet)="timeChangeEvent($event)" [minutesGap]="5" #timePicker></ngx-material-timepicker>
+</mdb-form-control>
+
+<app-dosage-input [value]="doseValue + ''" (doseChangeEvent)="doseChangeEvent($event)" [disabled]="!scheduled"></app-dosage-input>
+
+<button mdbRipple (click)="remove()" [disabled]="!scheduled" class="btn btn-danger btn-floating" type="button" style="background-image: url('/assets/img/alternate-trash.svg');
+background-repeat:no-repeat;
+background-position: center center;
+background-size: 60%;
+"></button>

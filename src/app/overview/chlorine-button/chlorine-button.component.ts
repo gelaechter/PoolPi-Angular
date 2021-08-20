@@ -1,8 +1,8 @@
-import { isScheduled, Time } from './../data';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { DataService } from '../data.service';
-import { WebsocketService } from '../websocket.service';
+import { doseToTime, isScheduled, Time } from 'src/app/data';
+import { DataService } from '../../data.service';
+import { WebsocketService } from '../../websocket.service';
 
 @Component({
   selector: 'app-chlorine-button',
@@ -11,9 +11,11 @@ import { WebsocketService } from '../websocket.service';
 })
 export class ChlorineButtonComponent implements OnInit {
 
+    @Input() size: string = "xl";
+
     chlorineOn: boolean;
-    quickDoseTime: Time = null;
     dose_ml: number;
+    quickDoseTime: Time = null;
 
     constructor(private data: DataService, private webSocket: WebsocketService) {
     }
@@ -33,11 +35,21 @@ export class ChlorineButtonComponent implements OnInit {
     }
 
     onClickButton() {
-        if (this.chlorineOn) {
-            this.webSocket.poolActions.chlorineOn(false);
+
+        if (this.scheduled()) {
+            this.webSocket.poolActions.chlorineOn(!this.chlorineOn);
         } else {
-            this.webSocket.poolActions.quickDose(this.dose_ml);
+            if(this.chlorineOn){
+                this.webSocket.poolActions.chlorineOn(false);
+            }else{
+                this.webSocket.poolActions.quickDose(this.dose_ml);
+            }
         }
+    }
+
+    scheduled() {
+        // returns true if chlorine is currently scheduled
+        return isScheduled(Time.now(), new Map<Time, Time>(Array.from(this.data._chlorineTimings.getValue()).map(([key, value]) => ([key, doseToTime(value as number).add(key)]))));
     }
 
 }

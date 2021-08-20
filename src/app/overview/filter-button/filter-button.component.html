@@ -1,0 +1,7 @@
+<button mdbRipple (click)="onClickButton()" [class.btn-danger]="!filterOn" [class.btn-success]="filterOn" class="btn btn-square-{{size}} font-weight-bold" type="button" style="background-image: url('/assets/img/air-filter.svg');
+                background-repeat:no-repeat;
+                background-position: center center;
+                background-size: 80%;
+                ">
+    {{ filterOn ? "Filter Ausschalten" : "Filter Anschalten" }}
+</button>

@@ -1,0 +1,30 @@
+<ng-container *ngIf="section === CHLORINE; else elseBlock">
+
+    <!-- Iterate through map and create a list item for each entry -->
+    <ng-container *ngFor="let map of chlorineEntries; last as isLast">
+        <app-dosing-list-item [time]="map[0]" [dose]="map[1]"></app-dosing-list-item>
+
+        <ng-container *ngIf="isLast">
+            <app-dosing-list-item></app-dosing-list-item>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="chlorineEntries.length === 0">
+            <app-dosing-list-item></app-dosing-list-item>
+    </ng-container>
+
+</ng-container>
+<ng-template #elseBlock>
+
+        <!-- Iterate through map and create a list item for each entry -->
+        <ng-container *ngFor="let map of timingEntries; last as isLast">
+            <app-timing-list-item [section]="section" [start]="map[0]" [stop]="map[1]"></app-timing-list-item>
+
+            <ng-container *ngIf="isLast">
+                <app-timing-list-item [section]="section"></app-timing-list-item>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="timingEntries.length === 0">
+            <app-timing-list-item [section]="section"></app-timing-list-item>
+        </ng-container>
+
+</ng-template>

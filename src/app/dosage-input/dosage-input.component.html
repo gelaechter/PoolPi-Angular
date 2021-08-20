@@ -1,4 +1,4 @@
 <mdb-form-control>
-    <input mdbInput type="number" id="typeNumber" class="form-control" min="1" max="9999" value={{value}} (input)="onInputChange($event)" (click)="openModal()" />
+    <input mdbInput type="number" id="typeNumber" class="form-control" min="1" max="9999" [value]="value" (input)="onInputChange($event)" (click)="openModal()" [disabled]="disabled" [readonly]="true"/>
     <label mdbLabel class="form-label" for="typeNumber">Dosis ml</label>
 </mdb-form-control>

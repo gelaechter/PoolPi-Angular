@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
-import { WebsocketService } from '../websocket.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { DataService } from 'src/app/data.service';
+import { WebsocketService } from 'src/app/websocket.service';
 
 @Component({
   selector: 'app-filter-button',
@@ -9,6 +9,8 @@ import { distinctUntilChanged } from 'rxjs/operators';
   styleUrls: ['./filter-button.component.scss']
 })
 export class FilterButtonComponent implements OnInit {
+
+    @Input() size: string = "xl";
 
     filterOn: boolean;
 

@@ -2,4 +2,4 @@
     type="button">
     Jetzt Chloren
 </button>
-<app-dosage-input (doseChangeEvent) ="changeDose($event)"></app-dosage-input>
+<app-dosage-input [value]="dose_ml.toString()" (doseChangeEvent) ="changeDose($event)"></app-dosage-input>

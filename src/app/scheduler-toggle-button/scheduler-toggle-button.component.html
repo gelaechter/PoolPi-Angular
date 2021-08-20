@@ -1,0 +1,5 @@
+<button (click)="toggleSchedule()" [class.btn-primary]="scheduled" [class.btn-danger]="!scheduled" class="btn d-flex d-lg-flex align-items-center align-items-lg-center px-2" type="button"
+    data-mdb-toggle="button" style="font-size: 0.8em; font-weight: bold;">
+    <i class="material-icons" style="font-size: 1.6em;">{{scheduled ? "timer" : "timer_off"}}</i>
+    {{scheduled ? "Zeitsteuerung" : "Zeitsteuerung"}}
+</button>

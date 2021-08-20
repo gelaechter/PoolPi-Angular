@@ -1,1 +1,4 @@
-<p>scheduler-indicator works!</p>
+<p class="d-flex d-xl-flex align-items-center align-items-xl-center small mt-3" [style.color]="scheduled ? 'var(--mdb-success)' : 'var(--mdb-danger)'">
+    <i class="material-icons">{{scheduled ? "timer" : "timer_off"}}</i>
+    {{scheduled ? "Zeitsteuerung Aktiv" : "Zeitsteuerung Inaktiv"}}
+</p>

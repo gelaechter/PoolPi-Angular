@@ -33,6 +33,7 @@ export class QuickDoseButtonComponent implements OnInit {
             this.webSocket.poolActions.quickDose(this.dose_ml);
         }else{
             this.webSocket.poolActions.chlorineOn(false);
+            this.webSocket.poolActions.quickDose(this.dose_ml);
         }
     }
 

@@ -21,9 +21,9 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SchduleDisplayComponent } from './schedule-display/schedule-display.component';
-import { ListComponent } from './list/list.component';
-import { DosingListItemComponent } from './dosing-list-item/dosing-list-item.component';
-import { TimingListItemComponent } from './timing-list-item/timing-list-item.component';
+import { ListComponent } from './timing-lists/list/list.component';
+import { DosingListItemComponent } from './timing-lists/dosing-list-item/dosing-list-item.component';
+import { TimingListItemComponent } from './timing-lists/timing-list-item/timing-list-item.component';
 
 // Time Picker
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
@@ -31,9 +31,11 @@ import { DosageInputComponent } from './dosage-input/dosage-input.component';
 import { NumpadPopupComponent } from './numpad-popup/numpad-popup.component';
 import { QuickDoseButtonComponent } from './quick-dose-button/quick-dose-button.component';
 import { SchedulerIndicatorComponent } from './overview/scheduler-indicator/scheduler-indicator.component';
-import { ChlorineButtonComponent } from './chlorine-button/chlorine-button.component';
-import { HeaterButtonComponent } from './heater-button/heater-button.component';
-import { FilterButtonComponent } from './filter-button/filter-button.component';
+import { ChlorineButtonComponent } from './overview/chlorine-button/chlorine-button.component';
+import { HeaterButtonComponent } from './overview/heater-button/heater-button.component';
+import { FilterButtonComponent } from './overview/filter-button/filter-button.component';
+import { InfoTextComponent } from './overview/info-text/info-text.component';
+import { SchedulerToggleButtonComponent } from './scheduler-toggle-button/scheduler-toggle-button.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { FilterButtonComponent } from './filter-button/filter-button.component';
     ChlorineButtonComponent,
     HeaterButtonComponent,
     FilterButtonComponent,
+    InfoTextComponent,
+    SchedulerToggleButtonComponent,
   ],
   imports: [
     BrowserModule,

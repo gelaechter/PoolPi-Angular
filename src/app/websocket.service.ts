@@ -31,17 +31,19 @@ export class WebsocketService {
         // Websocket Data always starts with a key and then the data itself
         switch (message.key) {
             case Keys.POOLDATA:
-                this.dataService.updatePool(message.data);
                 console.log(message.data);
+                this.dataService.updatePool(message.data);
         }
     }
 
     public sendCommand(key: Keys, command: any, args: any[]) {
-        this.socket.send(toJSON({
+        var json = toJSON({
             key: key.toString(),
             command: command,
             args: args
-        }))
+        });
+        console.log("Sending command", json);
+        this.socket.send(json);
     }
 }
 
@@ -95,15 +97,15 @@ class PoolActions {
     }
 
     public addChlorineTime(start: Time, dose_ml: number) {
-        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.ADD_CHLORINE_TIME, [start.minutes, dose_ml]);
+        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.ADD_CHLORINE_TIME, [start, dose_ml]);
     }
 
     public addHeaterTime(start: Time, stop: Time) {
-        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.ADD_HEATER_TIME, [start.minutes, stop.minutes]);
+        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.ADD_HEATER_TIME, [start, stop]);
     }
 
     public addFilterTime(start: Time, stop: Time) {
-        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.ADD_FILTER_TIME, [start.minutes, stop.minutes]);
+        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.ADD_FILTER_TIME, [start, stop]);
     }
 
     public removeChlorineTime(start: Time) {
@@ -111,7 +113,7 @@ class PoolActions {
     }
 
     public removeHeaterTime(start: Time) {
-        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.REMOVE_FILTER_TIME, [start]);
+        this.webSocketService.sendCommand(Keys.POOLDATA, PoolCommands.REMOVE_HEATER_TIME, [start]);
     }
 
     public removeFilterTime(start: Time) {

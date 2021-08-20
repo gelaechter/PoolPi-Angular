@@ -1,0 +1,20 @@
+<span style="font-weight: bold">{{ section === 1 ? "Heizen" : "Filtern" }}</span>
+
+<mdb-form-control>
+    <input mdbInput class="form-control" [id]="id1" [ngxTimepicker]="startPicker" [format]="24" [value]="startValue" [readonly]="true" [disabled]="!scheduled">
+    <label mdbLabel class="form-label" [for]="id1">Start Zeit</label>
+    <ngx-material-timepicker (timeSet)="startChangeEvent($event)" [minutesGap]="5" #startPicker>
+    </ngx-material-timepicker>
+</mdb-form-control>
+
+<mdb-form-control>
+    <input mdbInput class="form-control" [id]="id2" [ngxTimepicker]="stopPicker" [format]="24" [value]="stopValue" [readonly]="true" [disabled]="!scheduled">
+    <label mdbLabel class="form-label" [for]="id2">Stop Zeit</label>
+    <ngx-material-timepicker (timeSet)="stopChangeEvent($event)" [minutesGap]="5" #stopPicker></ngx-material-timepicker>
+</mdb-form-control>
+
+<button mdbRipple (click)="remove()" [disabled]="!scheduled" class="btn btn-danger btn-floating" type="button" style="background-image: url('/assets/img/alternate-trash.svg');
+background-repeat:no-repeat;
+background-position: center center;
+background-size: 60%;
+"></button>

@@ -1,0 +1,20 @@
+<button mdbRipple (click)="onClickButton()" [class.btn-danger]="!chlorineOn"
+    [class.btn-warning]="quickDoseTime !== null" [class.btn-success]="chlorineOn && quickDoseTime === null"
+    class="btn btn-square-{{size}} font-weight-bold" type="button" style="background-image: url('/assets/img/biohazard.svg');
+                background-repeat:no-repeat;
+                background-position: center center;
+                background-size: 80%;
+                ">
+    <ng-container *ngIf="chlorineOn; else notOn">
+        Chlorung Stoppen
+    </ng-container>
+    <ng-template #notOn>
+        <ng-container *ngIf="scheduled(); else notScheduled">
+            Chlorung fortsetzen
+        </ng-container>
+        <ng-template #notScheduled>
+            Jetzt Chloren <br>
+            ({{dose_ml}} ml)
+        </ng-template>
+    </ng-template>
+</button>

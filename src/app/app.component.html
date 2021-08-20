@@ -4,30 +4,21 @@
         <div class="row" style="height: 100%; width: 100%;">
             <div class="col d-md-flex flex-column flex-grow-1 justify-content-md-center align-items-md-center"
                 style="text-align: center; height: 100%;">
-                <p class="d-flex d-xl-flex align-items-center align-items-xl-center small mt-3"
-                    style="color: var(--mdb-success);"><i class="material-icons">timer</i>Zeitsteuerung Aktiv</p>
+                <app-scheduler-indicator [section]="CHLORINE"></app-scheduler-indicator>
                 <app-chlorine-button></app-chlorine-button>
-                <p class="small text-muted mt-3">
-                    Nächste Chlorung in 2 Stunden
-                </p>
-            </div>
-            <div class="col d-md-flex flex-column flex-grow-1 justify-content-md-center align-items-md-center"
-                style="text-align: center; height: 100%; position: relative;">
-                <p class="d-flex d-xl-flex align-items-center align-items-xl-center small mt-3"
-                    style="color: var(--mdb-danger);"><i class="material-icons">timer_off</i>Zeitsteuerung Inaktiv</p>
-                <app-heater-button></app-heater-button>
-                <p class="small text-muted mt-3">
-                    Automatischer Start in 5 Stunden
-                </p>
+                <app-info-text [section]="CHLORINE"></app-info-text>
             </div>
             <div class="col d-md-flex flex-column flex-grow-1 justify-content-md-center align-items-md-center"
                 style="text-align: center; height: 100%;">
-                <p class="d-flex d-xl-flex align-items-center align-items-xl-center small mt-3"
-                    style="color: var(--mdb-success);"><i class="material-icons">timer</i>Zeitsteuerung Aktiv</p>
+                <app-scheduler-indicator [section]="FILTER"></app-scheduler-indicator>
                 <app-filter-button></app-filter-button>
-                <p class="small text-muted mt-3">
-                    Automatischer Start in 5 Stunden
-                </p>
+                <app-info-text [section]="FILTER"></app-info-text>
+            </div>
+            <div class="col d-md-flex flex-column flex-grow-1 justify-content-md-center align-items-md-center"
+                style="text-align: center; height: 100%; position: relative;">
+                <app-scheduler-indicator [section]="HEATER"></app-scheduler-indicator>
+                <app-heater-button></app-heater-button>
+                <app-info-text [section]="HEATER"></app-info-text>
             </div>
         </div>
     </mdb-tab>
@@ -37,16 +28,14 @@
             style="height: 100%; width: 100%;">
             <div class="col-10 d-flex flex-column align-items-md-center px-1"
                 style="border-right-style: solid; border-right-color: var(--mdb-gray); height: 100%;">
-                <div class="row flex-grow-0 mb-5" style="width: 100%;">
+                <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
                     <div class="col" style="height: auto;">
-                        <app-timeframe-display></app-timeframe-display>
+                        <app-timeframe-display [section]="CHLORINE"></app-timeframe-display>
                     </div>
                 </div>
-                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;">
+                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
                     <div class="col" style="height: 100%;">
-                        <ul class="list-group" style="height: 100%; overflow-y: auto;">
-                            <app-dosing-list-item></app-dosing-list-item>
-                        </ul>
+                        <app-list [section]="CHLORINE"></app-list>
                     </div>
                 </div>
                 <div class="row flex-grow-0 my-3" style="width: 100%; height: auto;">
@@ -66,48 +55,7 @@
             </div>
             <div class="col-2 d-flex d-lg-flex flex-column justify-content-between align-items-center align-items-lg-start align-items-xl-center p-2"
                 style="height: 100%;">
-                <button class="btn btn-primary d-flex d-lg-flex align-items-center align-items-lg-center px-2"
-                    type="button" data-mdb-toggle="button" style="font-size: 0.8em; font-weight: bold;">
-                    <i class="material-icons" style="font-size: 1.6em;">timer</i>Zeitsteuerung
-                </button>
-                <button class="btn btn-success d-flex align-items-center align-items-xl-center p-3 py-2" type="button"
-                    style="font-weight: bold;"><i class="fa fa-plus" style="font-size: 2em;"></i>Timing
-                    Hinzufügen</button>
-            </div>
-        </div>
-    </mdb-tab>
-    <!-- ### HEATER TAB ### -->
-    <mdb-tab title="Heizung" style="height: 100%;">
-        <div class="row d-md-flex justify-content-center justify-content-md-center mx-0"
-            style="height: 100%; width: 100%;">
-            <div class="col-10 d-flex flex-column align-items-md-center px-1"
-                style="border-right-style: solid; border-right-color: var(--mdb-gray); height: 100%;">
-                <div class="row flex-grow-0 mb-5" style="width: 100%;">
-                    <div class="col" style="height: auto;">
-                        <app-timeframe-display></app-timeframe-display>
-                    </div>
-                </div>
-                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;">
-                    <div class="col" style="height: 100%;">
-                        <app-list target="">
-
-                        </app-list>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="col-2 text-center d-flex flex-column justify-content-between align-items-center align-items-lg-center p-2">
-                <button class="btn btn-primary d-flex flex-row align-items-center align-items-lg-center px-2"
-                    type="button" data-mdb-toggle="button" style="font-size: 0.8em; font-weight: bold;">
-                    <i class="material-icons" style="font-size: 1.6em;">timer</i>Zeitsteuerung
-                </button>
-                <button class="btn btn-danger btn-square-md font-weight-bold" type="button"
-                    style="background: url('/assets/img/radiator.svg') center / 80% 80% no-repeat, var(--mdb-danger);">
-                    Heizung Anschalten
-                </button>
-                <button class="btn btn-success d-flex align-items-center align-items-xl-center p-3 py-2" type="button"
-                    style="font-weight: bold;"><i class="fa fa-plus" style="font-size: 2em;"></i>Timing
-                    Hinzufügen</button>
+                <app-scheduler-toggle-button [section]="CHLORINE"></app-scheduler-toggle-button>
             </div>
         </div>
     </mdb-tab>
@@ -117,40 +65,53 @@
             style="height: 100%; width: 100%;">
             <div class="col-10 d-flex flex-column align-items-md-center px-1"
                 style="border-right-style: solid; border-right-color: var(--mdb-gray); height: 100%;">
-                <div class="row flex-grow-0 mb-5" style="width: 100%;">
+                <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
                     <div class="col" style="height: auto;">
-                        <app-timeframe-display></app-timeframe-display>
+                        <app-timeframe-display [section]="FILTER"></app-timeframe-display>
                     </div>
                 </div>
-                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;">
+                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
                     <div class="col" style="height: 100%;">
-                        <app-list target="">
-
-                        </app-list>
+                        <app-list [section]="FILTER"></app-list>
                     </div>
                 </div>
             </div>
             <div
                 class="col-2 text-center d-flex flex-column justify-content-between align-items-center align-items-lg-center p-2">
-                <button class="btn btn-primary d-flex flex-row align-items-center align-items-lg-center px-2"
-                    type="button" data-mdb-toggle="button" style="font-size: 0.8em; font-weight: bold;">
-                    <i class="material-icons" style="font-size: 1.6em;">timer</i>Zeitsteuerung
-                </button>
-                <button class="btn btn-danger btn-square-md font-weight-bold icon-lg" type="button"
-                    style="background: url('/assets/img/air-filter.svg') center / 80% 80% no-repeat, var(--mdb-danger);">
-                    Filter Anschalten
-                </button>
-                <button class="btn btn-success d-flex align-items-center align-items-xl-center p-3 py-2" type="button"
-                    style="font-weight: bold;"><i class="fa fa-plus" style="font-size: 2em;"></i>Timing
-                    Hinzufügen</button>
+                <app-scheduler-toggle-button [section]="FILTER"></app-scheduler-toggle-button>
+                <app-filter-button [size]="'md'"></app-filter-button>
+            </div>
+        </div>
+    </mdb-tab>
+    <!-- ### HEATER TAB ### -->
+    <mdb-tab title="Heizung" style="height: 100%;">
+        <div class="row d-md-flex justify-content-center justify-content-md-center mx-0"
+            style="height: 100%; width: 100%;">
+            <div class="col-10 d-flex flex-column align-items-md-center px-1"
+                style="border-right-style: solid; border-right-color: var(--mdb-gray); height: 100%;">
+                <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
+                    <div class="col" style="height: auto;">
+                        <app-timeframe-display [section]="HEATER"></app-timeframe-display>
+                    </div>
+                </div>
+                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
+                    <div class="col" style="height: 100%;">
+                        <app-list [section]="HEATER"></app-list>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-2 text-center d-flex flex-column justify-content-between align-items-center align-items-lg-center p-2">
+                <app-scheduler-toggle-button [section]="HEATER"></app-scheduler-toggle-button>
+                <app-heater-button [size]="'md'"></app-heater-button>
             </div>
         </div>
     </mdb-tab>
     <mdb-tab [disabled]="true">
         <ng-template mdbTabTitle>
             <span>
-                    {{connected ? "Verbunden" : "Verbindung getrennt"}}
-                    <i [style.color]="connected ? 'var(--mdb-success)' : 'var(--mdb-danger)'" class="fas fa-circle"></i>
+                {{connected ? "Verbunden" : "Verbindung getrennt"}}
+                <i [style.color]="connected ? 'var(--mdb-success)' : 'var(--mdb-danger)'" class="fas fa-circle"></i>
             </span>
         </ng-template>
     </mdb-tab>

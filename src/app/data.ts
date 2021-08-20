@@ -42,9 +42,9 @@ export class Time {
 
     // adds this Time to another
     public add(time: Time): Time {
-        var time: Time = new Time(this.minutes + time.minutes);
-        if (time.minutes > 1440) time = new Time(time.minutes - 1440);
-        return time;
+        var minutes: number = this.minutes + time.minutes;
+        if (minutes > 1440) minutes = minutes - 1440;
+        return new Time(minutes);
     }
 
     public subtract(time: Time): Time {
@@ -54,11 +54,20 @@ export class Time {
     }
 
     public fromNow(): Time {
-        return this.subtract(Time.now())
+        if(this.minutes > Time.now().minutes) { // does not loop
+            return this.subtract(Time.now())
+        }else{ // loops
+            return new Time(1440 - Time.now().minutes + this.minutes);
+        }
     }
 
     public static now(): Time {
         return new Time(new Date());
+    }
+
+    // create a key for this Time so that a Map can compare them;
+    get key(): number {
+        return this.time;
     }
 }
 
@@ -83,9 +92,9 @@ export class PinConfig {
 export class HotTubData { }
 
 export enum Section {
-    Chlorine,
-    Heater,
-    Filter,
+    CHLORINE,
+    HEATER,
+    FILTER,
 }
 
 /**
@@ -170,4 +179,11 @@ function reviver(key, value) {
         }
     }
     return value;
+}
+
+export function uuidv4(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }
