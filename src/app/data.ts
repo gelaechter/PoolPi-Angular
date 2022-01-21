@@ -1,10 +1,10 @@
 // Dosage pump dosing speed
-const litres_per_hour: number = 0.96;
+const litres_per_hour = 0.96;
 
 // Class modeling a time passed since 00:00
 export class Time {
     //This should be in minutes since 00:00
-    private time: number = 0;
+    private time = 0;
 
     // new Time based on either minutes, text or a Date
     constructor(time: any) {
@@ -16,46 +16,46 @@ export class Time {
         }
     }
 
-    public get minutes() {
+    public get minutes(): number {
         return this.time;
-    }
-
-    public get text() {
-        var hours = Math.floor(this.minutes / 60);
-        var minutes = this.minutes % 60;
-        return String(hours).padStart(2, "0") + ':' + String(minutes).padStart(2, "0")
     }
 
     public set minutes(minutes: number) {
         if (minutes < 0 || minutes > 1440) {
-            throw new Error('Invalid amount of minutes');
+            throw new Error("Invalid amount of minutes");
         }
         this.time = minutes;
     }
 
+    public get text(): string {
+        const hours = Math.floor(this.minutes / 60);
+        const minutes = this.minutes % 60;
+        return String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
+    }
+
     public set text(time: string) {
-        var hours: number = parseInt(time.split(':')[0]);
-        var minutes: number = parseInt(time.split(':')[1]);
+        const hours: number = parseInt(time.split(":")[0]);
+        const minutes: number = parseInt(time.split(":")[1]);
 
         this.time = minutes + hours * 60;
     }
 
     // adds this Time to another
     public add(time: Time): Time {
-        var minutes: number = this.minutes + time.minutes;
+        let minutes: number = this.minutes + time.minutes;
         if (minutes > 1440) minutes = minutes - 1440;
         return new Time(minutes);
     }
 
     public subtract(time: Time): Time {
-        var minutes: number = this.minutes - time.minutes;
+        let minutes: number = this.minutes - time.minutes;
         if (minutes < 0) minutes = 1440 - time.minutes;
         return new Time(minutes);
     }
 
     public fromNow(): Time {
         if(this.minutes > Time.now().minutes) { // does not loop
-            return this.subtract(Time.now())
+            return this.subtract(Time.now());
         }else{ // loops
             return new Time(1440 - Time.now().minutes + this.minutes);
         }
@@ -74,19 +74,19 @@ export class Time {
 // class to configure the pins for the different IOs
 export class PinConfig {
     // pool
-    public pool_chlorinePump: number = 10;
-    public pool_filter: number = 8;
-    public pool_heater: number = 12;
+    public pool_chlorinePump = 10;
+    public pool_filter = 8;
+    public pool_heater = 12;
 
     // hot tub
-    public hottub_heater: number = 16;
-    public hottub_pump: number = 18;
-    public hottub_filterPump: number = 22;
-    public hottub_UVLamp: number = 24;
-    public hottub_chlorinePump: number = 26;
+    public hottub_heater = 16;
+    public hottub_pump = 18;
+    public hottub_filterPump = 22;
+    public hottub_UVLamp = 24;
+    public hottub_chlorinePump = 26;
     // public hottub_LED: number = 0;
 
-    public tempSensors: number = 7;
+    public tempSensors = 7;
 }
 
 export class HotTubData { }
@@ -137,8 +137,8 @@ export function isInTimeframe(time: Time, start: Time, stop: Time): boolean {
  * @param  {any} object - Any of the Data classes.
  */
 export function doseToTime(dosis_ml: number): Time {
-    var ml_per_hour = litres_per_hour * 1000;
-    var ml_per_minute = ml_per_hour / 60; // At the rate of 0.96 L/h this should be 16 mL/min
+    const ml_per_hour = litres_per_hour * 1000;
+    const ml_per_minute = ml_per_hour / 60; // At the rate of 0.96 L/h this should be 16 mL/min
 
     return new Time(dosis_ml / ml_per_minute);
 }
@@ -148,7 +148,7 @@ export function toJSON(object: any): string {
 }
 
 export function fromJSON(json: string): any {
-    var object: any = new Object();
+    const object: any = new Object();
     return Object.assign(object, JSON.parse(json, reviver));
 }
 
@@ -156,12 +156,12 @@ export function fromJSON(json: string): any {
 function replacer(key, value) {
     if (value instanceof Map) {
         return {
-            dataType: 'Map',
+            dataType: "Map",
             value: Array.from(value.entries()), // or with spread: value: [...value]
         };
     } else if (value instanceof Time) {
         return {
-            dataType: 'Time',
+            dataType: "Time",
             minutes: value.minutes,
         };
     } else {
@@ -171,10 +171,10 @@ function replacer(key, value) {
 
 //function for map serialization from JSON
 function reviver(key, value) {
-    if (typeof value === 'object' && value !== null) {
-        if (value.dataType === 'Map') {
+    if (typeof value === "object" && value !== null) {
+        if (value.dataType === "Map") {
             return new Map(value.value);
-        }else if(value.dataType === 'Time') {
+        }else if(value.dataType === "Time") {
             return new Time(value.minutes);
         }
     }
@@ -182,8 +182,8 @@ function reviver(key, value) {
 }
 
 export function uuidv4(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0, v = c == "x" ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }

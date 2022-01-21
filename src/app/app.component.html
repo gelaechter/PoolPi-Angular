@@ -1,118 +1,264 @@
 <mdb-tabs class="d-flex flex-column flex-grow-0">
-    <!-- ### OVERVIEW TAB ### -->
-    <mdb-tab title="Übersicht" style="height: 100%;">
-        <div class="row" style="height: 100%; width: 100%;">
-            <div class="col d-md-flex flex-column flex-grow-1 justify-content-md-center align-items-md-center"
-                style="text-align: center; height: 100%;">
-                <app-scheduler-indicator [section]="CHLORINE"></app-scheduler-indicator>
-                <app-chlorine-button></app-chlorine-button>
-                <app-info-text [section]="CHLORINE"></app-info-text>
-            </div>
-            <div class="col d-md-flex flex-column flex-grow-1 justify-content-md-center align-items-md-center"
-                style="text-align: center; height: 100%;">
-                <app-scheduler-indicator [section]="FILTER"></app-scheduler-indicator>
-                <app-filter-button></app-filter-button>
-                <app-info-text [section]="FILTER"></app-info-text>
-            </div>
-            <div class="col d-md-flex flex-column flex-grow-1 justify-content-md-center align-items-md-center"
-                style="text-align: center; height: 100%; position: relative;">
-                <app-scheduler-indicator [section]="HEATER"></app-scheduler-indicator>
-                <app-heater-button></app-heater-button>
-                <app-info-text [section]="HEATER"></app-info-text>
-            </div>
-        </div>
-    </mdb-tab>
-    <!-- ### CHLORINE TAB ### -->
-    <mdb-tab title="Chlorung" style="height: 100%;">
-        <div class="row d-md-flex justify-content-center justify-content-md-center mx-0"
-            style="height: 100%; width: 100%;">
-            <div class="col-10 d-flex flex-column align-items-md-center px-1"
-                style="border-right-style: solid; border-right-color: var(--mdb-gray); height: 100%;">
-                <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
-                    <div class="col" style="height: auto;">
-                        <app-timeframe-display [section]="CHLORINE"></app-timeframe-display>
-                    </div>
+    <!-- Pool Page Container -->
+    <ng-container *ngIf="poolMode">
+        <!-- ### OVERVIEW TAB ### -->
+        <mdb-tab title="Übersicht" style="height: 100%;">
+            <div class="row" style="height: 100%; width: 100%;">
+                <div class="col d-md-flex flex-column flex-grow-1
+                justify-content-md-center align-items-md-center" style="text-align: center; height: 100%;">
+                    <app-scheduler-indicator [section]="CHLORINE"></app-scheduler-indicator>
+                    <app-chlorine-button></app-chlorine-button>
+                    <app-info-text [section]="CHLORINE"></app-info-text>
                 </div>
-                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
-                    <div class="col" style="height: 100%;">
-                        <app-list [section]="CHLORINE"></app-list>
-                    </div>
+                <div class="col d-md-flex flex-column flex-grow-1
+                justify-content-md-center align-items-md-center" style="text-align: center; height: 100%;">
+                    <app-scheduler-indicator [section]="FILTER"></app-scheduler-indicator>
+                    <app-filter-button></app-filter-button>
+                    <app-info-text [section]="FILTER"></app-info-text>
                 </div>
-                <div class="row flex-grow-0 my-3" style="width: 100%; height: auto;">
-                    <div
-                        class="col d-flex d-xxl-flex flex-column justify-content-md-center align-items-md-center justify-content-xxl-center align-items-xxl-center px-3">
-                        <app-quick-dose-button [number]="0"></app-quick-dose-button>
-                    </div>
-                    <div
-                        class="col d-flex d-xxl-flex flex-column justify-content-md-center align-items-md-center justify-content-xxl-center align-items-xxl-center px-3">
-                        <app-quick-dose-button [number]="1"></app-quick-dose-button>
-                    </div>
-                    <div
-                        class="col d-flex d-xxl-flex flex-column justify-content-md-center align-items-md-center justify-content-xxl-center align-items-xxl-center px-3">
-                        <app-quick-dose-button [number]="2"></app-quick-dose-button>
-                    </div>
+                <div class="col d-md-flex flex-column flex-grow-1
+                justify-content-md-center align-items-md-center" style="text-align: center; height: 100%; position: relative;">
+                    <app-scheduler-indicator [section]="HEATER"></app-scheduler-indicator>
+                    <app-heater-button></app-heater-button>
+                    <app-info-text [section]="HEATER"></app-info-text>
                 </div>
             </div>
-            <div class="col-2 d-flex d-lg-flex flex-column justify-content-between align-items-center align-items-lg-start align-items-xl-center p-2"
-                style="height: 100%;">
-                <app-scheduler-toggle-button [section]="CHLORINE"></app-scheduler-toggle-button>
-            </div>
-        </div>
-    </mdb-tab>
-    <!-- ### FILTER TAB ### -->
-    <mdb-tab title="Filter" style="height: 100%;">
-        <div class="row d-md-flex justify-content-center justify-content-md-center mx-0"
-            style="height: 100%; width: 100%;">
-            <div class="col-10 d-flex flex-column align-items-md-center px-1"
-                style="border-right-style: solid; border-right-color: var(--mdb-gray); height: 100%;">
-                <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
-                    <div class="col" style="height: auto;">
-                        <app-timeframe-display [section]="FILTER"></app-timeframe-display>
+        </mdb-tab>
+        <!-- ### CHLORINE TAB ### -->
+        <mdb-tab title="Chlorung" style="height: 100%;">
+            <div class="row d-md-flex justify-content-center
+            justify-content-md-center mx-0" style="height: 100%; width: 100%;">
+                <div class="col-10 d-flex flex-column align-items-md-center px-1" style="border-right-style: solid; border-right-color:
+                var(--mdb-gray); height: 100%;">
+                    <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: auto;">
+                            <app-timeframe-display [section]="CHLORINE"></app-timeframe-display>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-1 overflow-hidden" style="width:
+                    100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: 100%;">
+                            <app-list [section]="CHLORINE"></app-list>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-0 my-3" style="width: 100%; height:
+                    auto;">
+                        <div class="col d-flex d-xxl-flex flex-column
+                        justify-content-md-center align-items-md-center
+                        justify-content-xxl-center align-items-xxl-center px-3">
+                            <app-quick-dose-button [number]="0"></app-quick-dose-button>
+                        </div>
+                        <div class="col d-flex d-xxl-flex flex-column
+                        justify-content-md-center align-items-md-center
+                        justify-content-xxl-center align-items-xxl-center px-3">
+                            <app-quick-dose-button [number]="1"></app-quick-dose-button>
+                        </div>
+                        <div class="col d-flex d-xxl-flex flex-column
+                        justify-content-md-center align-items-md-center
+                        justify-content-xxl-center align-items-xxl-center px-3">
+                            <app-quick-dose-button [number]="2"></app-quick-dose-button>
+                        </div>
                     </div>
                 </div>
-                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
-                    <div class="col" style="height: 100%;">
-                        <app-list [section]="FILTER"></app-list>
-                    </div>
+                <div class="col-2 d-flex d-lg-flex flex-column
+                justify-content-between align-items-center align-items-lg-start
+                align-items-xl-center p-2" style="height: 100%;">
+                    <app-scheduler-toggle-button [section]="CHLORINE"></app-scheduler-toggle-button>
                 </div>
             </div>
-            <div
-                class="col-2 text-center d-flex flex-column justify-content-between align-items-center align-items-lg-center p-2">
-                <app-scheduler-toggle-button [section]="FILTER"></app-scheduler-toggle-button>
-                <app-filter-button [size]="'md'"></app-filter-button>
-            </div>
-        </div>
-    </mdb-tab>
-    <!-- ### HEATER TAB ### -->
-    <mdb-tab title="Heizung" style="height: 100%;">
-        <div class="row d-md-flex justify-content-center justify-content-md-center mx-0"
-            style="height: 100%; width: 100%;">
-            <div class="col-10 d-flex flex-column align-items-md-center px-1"
-                style="border-right-style: solid; border-right-color: var(--mdb-gray); height: 100%;">
-                <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
-                    <div class="col" style="height: auto;">
-                        <app-timeframe-display [section]="HEATER"></app-timeframe-display>
+        </mdb-tab>
+        <!-- ### FILTER TAB ### -->
+        <mdb-tab title="Filter" style="height: 100%;">
+            <div class="row d-md-flex justify-content-center
+            justify-content-md-center mx-0" style="height: 100%; width: 100%;">
+                <div class="col-10 d-flex flex-column align-items-md-center px-1" style="border-right-style: solid; border-right-color:
+                var(--mdb-gray); height: 100%;">
+                    <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: auto;">
+                            <app-timeframe-display [section]="FILTER"></app-timeframe-display>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-1 overflow-hidden" style="width:
+                    100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: 100%;">
+                            <app-list [section]="FILTER"></app-list>
+                        </div>
                     </div>
                 </div>
-                <div class="row flex-grow-1 overflow-hidden" style="width: 100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
-                    <div class="col" style="height: 100%;">
-                        <app-list [section]="HEATER"></app-list>
-                    </div>
+                <div class="col-2 text-center d-flex flex-column
+                justify-content-between align-items-center align-items-lg-center
+                p-2">
+                    <app-scheduler-toggle-button [section]="FILTER"></app-scheduler-toggle-button>
+                    <app-filter-button [size]="'md'"></app-filter-button>
                 </div>
             </div>
-            <div
-                class="col-2 text-center d-flex flex-column justify-content-between align-items-center align-items-lg-center p-2">
-                <app-scheduler-toggle-button [section]="HEATER"></app-scheduler-toggle-button>
-                <app-heater-button [size]="'md'"></app-heater-button>
+        </mdb-tab>
+        <!-- ### HEATER TAB ### -->
+        <mdb-tab title="Heizung" style="height: 100%;">
+            <div class="row d-md-flex justify-content-center
+            justify-content-md-center mx-0" style="height: 100%; width: 100%;">
+                <div class="col-10 d-flex flex-column align-items-md-center px-1" style="border-right-style: solid; border-right-color:
+                var(--mdb-gray); height: 100%;">
+                    <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: auto;">
+                            <app-timeframe-display [section]="HEATER"></app-timeframe-display>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-1 overflow-hidden" style="width:
+                    100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: 100%;">
+                            <app-list [section]="HEATER"></app-list>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 text-center d-flex flex-column
+                justify-content-between align-items-center align-items-lg-center
+                p-2">
+                    <app-scheduler-toggle-button [section]="HEATER"></app-scheduler-toggle-button>
+                    <app-heater-button [size]="'md'"></app-heater-button>
+                </div>
             </div>
-        </div>
-    </mdb-tab>
+        </mdb-tab>
+    </ng-container>
+
+    <!-- HotTub Page Container -->
+    <ng-container *ngIf="poolMode === false">
+        <!-- ### OVERVIEW TAB ### -->
+        <mdb-tab title="Übersicht" style="height: 50%;">
+            <app-temp-control [style.height]="'30%'"></app-temp-control>
+            <div class="row" style="height: 55%; width: 100%;">
+                <div class="col d-md-flex flex-column flex-grow-1
+                justify-content-md-center align-items-md-center" style="text-align: center; height: 100%;">
+                    <app-scheduler-indicator [section]="CHLORINE"></app-scheduler-indicator>
+                    <app-chlorine-button [size]="'lg'"></app-chlorine-button>
+                    <app-info-text [section]="CHLORINE"></app-info-text>
+                </div>
+                <div class="col d-md-flex flex-column flex-grow-1
+                justify-content-md-center align-items-md-center" style="text-align: center; height: 100%;">
+                    <app-scheduler-indicator [section]="FILTER"></app-scheduler-indicator>
+                    <app-filter-button [size]="'lg'"></app-filter-button>
+                    <app-info-text [section]="FILTER"></app-info-text>
+                </div>
+                <div class="col d-md-flex flex-column flex-grow-1
+                justify-content-md-center align-items-md-center" style="text-align: center; height: 100%; position: relative;">
+                    <app-scheduler-indicator [section]="HEATER"></app-scheduler-indicator>
+                    <app-heater-button [size]="'lg'"></app-heater-button>
+                    <app-info-text [section]="HEATER"></app-info-text>
+                </div>
+            </div>
+        </mdb-tab>
+        <!-- ### CHLORINE TAB ### -->
+        <mdb-tab title="Chlorung" style="height: 100%;">
+            <div class="row d-md-flex justify-content-center
+            justify-content-md-center mx-0" style="height: 100%; width: 100%;">
+                <div class="col-10 d-flex flex-column align-items-md-center px-1" style="border-right-style: solid; border-right-color:
+                var(--mdb-gray); height: 100%;">
+                    <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: auto;">
+                            <app-timeframe-display [section]="CHLORINE"></app-timeframe-display>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-1 overflow-hidden" style="width:
+                    100%;" [style.opacity]="chlorineScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: 100%;">
+                            <app-list [section]="CHLORINE"></app-list>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-0 my-3" style="width: 100%; height:
+                    auto;">
+                        <div class="col d-flex d-xxl-flex flex-column
+                        justify-content-md-center align-items-md-center
+                        justify-content-xxl-center align-items-xxl-center px-3">
+                            <app-quick-dose-button [number]="0"></app-quick-dose-button>
+                        </div>
+                        <div class="col d-flex d-xxl-flex flex-column
+                        justify-content-md-center align-items-md-center
+                        justify-content-xxl-center align-items-xxl-center px-3">
+                            <app-quick-dose-button [number]="1"></app-quick-dose-button>
+                        </div>
+                        <div class="col d-flex d-xxl-flex flex-column
+                        justify-content-md-center align-items-md-center
+                        justify-content-xxl-center align-items-xxl-center px-3">
+                            <app-quick-dose-button [number]="2"></app-quick-dose-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 d-flex d-lg-flex flex-column
+                justify-content-between align-items-center align-items-lg-start
+                align-items-xl-center p-2" style="height: 100%;">
+                    <app-scheduler-toggle-button [section]="CHLORINE"></app-scheduler-toggle-button>
+                </div>
+            </div>
+        </mdb-tab>
+        <!-- ### FILTER + UV TAB ### -->
+        <mdb-tab title="Filter + UV" style="height: 100%;">
+            <div class="row d-md-flex justify-content-center
+            justify-content-md-center mx-0" style="height: 100%; width: 100%;">
+                <div class="col-10 d-flex flex-column align-items-md-center px-1" style="border-right-style: solid; border-right-color:
+                var(--mdb-gray); height: 100%;">
+                    <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: auto;">
+                            <app-timeframe-display [section]="FILTER"></app-timeframe-display>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-1 overflow-hidden" style="width:
+                    100%;" [style.opacity]="filterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: 100%;">
+                            <app-list [section]="FILTER"></app-list>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 text-center d-flex flex-column
+                justify-content-between align-items-center align-items-lg-center
+                p-2">
+                    <app-scheduler-toggle-button [section]="FILTER"></app-scheduler-toggle-button>
+                    <app-filter-button [size]="'md'"></app-filter-button>
+                </div>
+            </div>
+        </mdb-tab>
+        <!-- ### HEATER TAB ### -->
+        <mdb-tab title="Heizung" style="height: 100%;">
+            <div class="row d-md-flex justify-content-center
+            justify-content-md-center mx-0" style="height: 100%; width: 100%;">
+                <div class="col-10 d-flex flex-column align-items-md-center px-1" style="border-right-style: solid; border-right-color:
+                var(--mdb-gray); height: 100%;">
+                    <div class="row flex-grow-0 mb-5" style="width: 100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: auto;">
+                            <app-timeframe-display [section]="HEATER"></app-timeframe-display>
+                        </div>
+                    </div>
+                    <div class="row flex-grow-1 overflow-hidden" style="width:
+                    100%;" [style.opacity]="heaterScheduled ? '100%' : '50%'">
+                        <div class="col" style="height: 100%;">
+                            <app-list [section]="HEATER"></app-list>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 text-center d-flex flex-column
+                justify-content-between align-items-center align-items-lg-center
+                p-2">
+                    <app-scheduler-toggle-button [section]="HEATER"></app-scheduler-toggle-button>
+                    <app-heater-button [size]="'md'"></app-heater-button>
+                </div>
+            </div>
+        </mdb-tab>
+    </ng-container>
+
     <mdb-tab [disabled]="true">
         <ng-template mdbTabTitle>
             <span>
                 {{connected ? "Verbunden" : "Verbindung getrennt"}}
-                <i [style.color]="connected ? 'var(--mdb-success)' : 'var(--mdb-danger)'" class="fas fa-circle"></i>
+                <i [style.color]="connected ? 'var(--mdb-success)' :
+                    'var(--mdb-danger)'" class="fas fa-circle"></i>
             </span>
         </ng-template>
+    </mdb-tab>
+    <mdb-tab>
+        <ng-template mdbTabTitle>
+            <span>
+                <i class="fas fa-cog fa-lg"></i>
+            </span>
+        </ng-template>
+        <button mdbRipple type="button" class="btn btn-primary" (click)="changeMode()">Modus Wechseln</button>
     </mdb-tab>
 </mdb-tabs>

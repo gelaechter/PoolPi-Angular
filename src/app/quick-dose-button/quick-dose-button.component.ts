@@ -1,13 +1,13 @@
-import { Time } from './../data';
-import { Component, Input, OnInit } from '@angular/core';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { DataService } from '../data.service';
-import { WebsocketService } from '../websocket.service';
+import { Time } from "./../data";
+import { Component, Input, OnInit } from "@angular/core";
+import { distinctUntilChanged } from "rxjs/operators";
+import { DataService } from "../data.service";
+import { WebsocketService } from "../websocket.service";
 
 @Component({
-    selector: 'app-quick-dose-button',
-    templateUrl: './quick-dose-button.component.html',
-    styleUrls: ['./quick-dose-button.component.scss']
+    selector: "app-quick-dose-button",
+    templateUrl: "./quick-dose-button.component.html",
+    styleUrls: ["./quick-dose-button.component.scss"]
 })
 export class QuickDoseButtonComponent implements OnInit {
 
@@ -19,13 +19,13 @@ export class QuickDoseButtonComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.data._quickDoseTime.pipe(distinctUntilChanged()).subscribe((time: Time) => {
+        this.data._pQuickDoseTime.pipe(distinctUntilChanged()).subscribe((time: Time) => {
             this.quickDoseTime = time;
-        })
+        });
 
-        this.data._doses.pipe(distinctUntilChanged()).subscribe((doses: number[]) => {
+        this.data._pDoses.pipe(distinctUntilChanged()).subscribe((doses: number[]) => {
             this.dose_ml = doses[this.number];
-        })
+        });
     }
 
     onClickButton() {
@@ -38,7 +38,7 @@ export class QuickDoseButtonComponent implements OnInit {
     }
 
     changeDose(dose: number)  {
-        var doses = [...this.data._doses.value]
+        const doses = [...this.data._pDoses.value];
         doses[this.number] = dose;
         this.webSocket.poolActions.changeDoses(doses);
     }

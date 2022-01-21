@@ -1,8 +1,8 @@
-import { DataService } from './../data.service';
+import { DataService } from "./../data.service";
 import { Component, AfterViewInit, ElementRef, ViewChild, OnInit, Input } from "@angular/core";
-import { distinctUntilChanged } from 'rxjs/operators';
-import { Time, Section, doseToTime } from '../data';
-import { BehaviorSubject } from 'rxjs';
+import { distinctUntilChanged } from "rxjs/operators";
+import { Time, Section, doseToTime } from "../data";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
     selector: "app-timeframe-display",
@@ -16,28 +16,28 @@ export class SchduleDisplayComponent implements OnInit, AfterViewInit {
     width: number;
     height: number;
     context: CanvasRenderingContext2D;
-    ready: boolean = false;
+    ready = false;
 
-    blue: string = "#1266f1";
-    orange: string = "#ffa900";
+    blue = "#1266f1";
+    orange = "#ffa900";
 
-    @ViewChild('scheduleCanvas', { static: false }) scheduleCanvas: ElementRef;
-    @ViewChild('overlay', { static: false }) overlay: ElementRef;
+    @ViewChild("scheduleCanvas", { static: false }) scheduleCanvas: ElementRef;
+    @ViewChild("overlay", { static: false }) overlay: ElementRef;
 
     constructor(private data: DataService, private el: ElementRef) { }
 
     ngOnInit(): void {
         // get the data for the correct section
-        var getSectionData = (): BehaviorSubject<Map<Time, Time | number>> => {
+        const getSectionData = (): BehaviorSubject<Map<Time, Time | number>> => {
             switch (this.section) {
-                case Section.CHLORINE:
-                    return this.data._chlorineTimings;
-                case Section.FILTER:
-                    return this.data._filterTimings;
-                case Section.HEATER:
-                    return this.data._heaterTimings;
+            case Section.CHLORINE:
+                return this.data._pChlorineTimings;
+            case Section.FILTER:
+                return this.data._pFilterTimings;
+            case Section.HEATER:
+                return this.data._pHeaterTimings;
             }
-        }
+        };
 
         // pipe schedule data, if chlorine: convert chlorine data and redraw on quickdose change
         getSectionData().pipe(distinctUntilChanged()).subscribe((timings: Map<Time, Time | number>) => {
@@ -48,19 +48,19 @@ export class SchduleDisplayComponent implements OnInit, AfterViewInit {
 
             this.timings = timings as Map<Time, Time>;
             this.redraw();
-        })
+        });
 
         // if the quickDose changes then redraw it
         if (this.section === Section.CHLORINE) {
-            this.data._quickDoseTime.pipe(distinctUntilChanged()).subscribe(() => this.redraw());
+            this.data._pQuickDoseTime.pipe(distinctUntilChanged()).subscribe(() => this.redraw());
         }
     }
 
     ngAfterViewInit(): void {
-        this.context = this.scheduleCanvas.nativeElement.getContext('2d');
+        this.context = this.scheduleCanvas.nativeElement.getContext("2d");
 
         // observer to observe the component for becoming visible; it only took all of my sanity to figure this one out
-        var observer = new IntersectionObserver((entries, observer) => {
+        const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.intersectionRatio > 0) {
                     this.width = this.el.nativeElement.clientWidth;
@@ -82,7 +82,7 @@ export class SchduleDisplayComponent implements OnInit, AfterViewInit {
         if (this.section === Section.CHLORINE)
             setInterval(() => {
                 this.redraw();
-            }, 60 * 1000)
+            }, 60 * 1000);
     }
 
     // clears the canvas, then draws schedule and quickdose
@@ -110,8 +110,8 @@ export class SchduleDisplayComponent implements OnInit, AfterViewInit {
                 this.context.fillRect(Math.round(this.w(startTime.minutes / 1440)), 0, this.width, this.h(1)); //Draw from start to end
             } else {
                 // does not loop
-                var x = Math.round(this.w(startTime.minutes / 1440))
-                var w = Math.round(this.w(stopTime.minutes / 1440) - this.w(startTime.minutes / 1440));
+                const x = Math.round(this.w(startTime.minutes / 1440));
+                const w = Math.round(this.w(stopTime.minutes / 1440) - this.w(startTime.minutes / 1440));
                 this.context.fillRect(x, 0, w, this.h(1));
             }
         }
@@ -119,12 +119,12 @@ export class SchduleDisplayComponent implements OnInit, AfterViewInit {
 
     // draws a current quickdose onto the canvas
     drawQuickDose() {
-        if (this.section !== Section.CHLORINE || this.data._quickDoseTime.getValue() === null) return;
+        if (this.section !== Section.CHLORINE || this.data._pQuickDoseTime.getValue() === null) return;
 
         this.context.fillStyle = this.orange;
 
-        var startTime = Time.now();
-        var stopTime = this.data._quickDoseTime.getValue();
+        const startTime = Time.now();
+        const stopTime = this.data._pQuickDoseTime.getValue();
 
         // Check if this timeframe loops around (stop happens before start)
         if (startTime.minutes > stopTime.minutes) {
@@ -133,8 +133,8 @@ export class SchduleDisplayComponent implements OnInit, AfterViewInit {
             this.context.fillRect(Math.round(this.w(startTime.minutes / 1440)), 0, this.width, this.h(1)); //Draw from start to end
         } else {
             // does not loop
-            var x = Math.round(this.w(startTime.minutes / 1440))
-            var w = Math.round(this.w(stopTime.minutes / 1440) - this.w(startTime.minutes / 1440));
+            const x = Math.round(this.w(startTime.minutes / 1440));
+            const w = Math.round(this.w(stopTime.minutes / 1440) - this.w(startTime.minutes / 1440));
             this.context.fillRect(x, 0, w, this.h(1));
         }
 

@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
-import Keyboard from 'simple-keyboard';
+import { AfterViewInit, Component } from "@angular/core";
+import { MdbModalRef } from "mdb-angular-ui-kit/modal";
+import Keyboard from "simple-keyboard";
 
 @Component({
-    selector: 'app-numpad-popup',
-    templateUrl: './numpad-popup.component.html',
-    styleUrls: ['./numpad-popup.component.scss'],
+    selector: "app-numpad-popup",
+    templateUrl: "./numpad-popup.component.html",
+    styleUrls: ["./numpad-popup.component.scss"],
 })
-export class NumpadPopupComponent {
+export class NumpadPopupComponent implements AfterViewInit {
 
     private readonly max = 23040
     private readonly min = 16
 
-    value = '';
+    value = "";
     keyboard: Keyboard;
 
     constructor(public modalRef: MdbModalRef<NumpadPopupComponent>) { }
@@ -23,9 +23,9 @@ export class NumpadPopupComponent {
             onChange: input => this.onChange(input),
             onKeyPress: (button) => this.onKeyPress(button),
             layout: {
-                default: ['1 2 3', '4 5 6', '7 8 9', ' 0 {bksp}', 'Done'],
+                default: ["1 2 3", "4 5 6", "7 8 9", " 0 {bksp}", "Done"],
             },
-            theme: 'hg-theme-default hg-layout-numeric numeric-theme',
+            theme: "hg-theme-default hg-layout-numeric numeric-theme",
         });
         this.keyboard.setInput(this.value);
     }
@@ -49,12 +49,12 @@ export class NumpadPopupComponent {
 
     //If you press the done button the popup closes and the value is sent to the input
     onKeyPress = (button: string) => {
-        if (button === 'Done') {
+        if (button === "Done") {
             if(!(this.value === "" || this.value === "0"))
-            if(this.parseNumber(this.value) < this.min) { // min
-                this.keyboard.setInput(this.min.toString());
-                this.value = this.min.toString();
-            }
+                if(this.parseNumber(this.value) < this.min) { // min
+                    this.keyboard.setInput(this.min.toString());
+                    this.value = this.min.toString();
+                }
 
             this.modalRef.close(this.value);
         }

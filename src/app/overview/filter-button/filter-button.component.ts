@@ -1,16 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { DataService } from 'src/app/data.service';
-import { WebsocketService } from 'src/app/websocket.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { distinctUntilChanged } from "rxjs/operators";
+import { DataService } from "src/app/data.service";
+import { WebsocketService } from "src/app/websocket.service";
 
 @Component({
-  selector: 'app-filter-button',
-  templateUrl: './filter-button.component.html',
-  styleUrls: ['./filter-button.component.scss']
+    selector: "app-filter-button",
+    templateUrl: "./filter-button.component.html",
+    styleUrls: ["./filter-button.component.scss"]
 })
 export class FilterButtonComponent implements OnInit {
 
-    @Input() size: string = "xl";
+    @Input() size = "xl";
 
     filterOn: boolean;
 
@@ -18,9 +18,9 @@ export class FilterButtonComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.data._filterOn.pipe(distinctUntilChanged()).subscribe((on: boolean) => {
+        this.data._pFilterOn.pipe(distinctUntilChanged()).subscribe((on: boolean) => {
             this.filterOn = on;
-        })
+        });
     }
 
     onClickButton() {

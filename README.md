@@ -1,7 +1,7 @@
 
 <!-- PROJECT LOGO -->
 <p align="center">
-  <a href="README.md">🇬🇧 English</a>
+  <a href="README.md">🇬🇧 Engl^ish</a>
   &nbsp;
   <a href="README.de.md">🇩🇪 Deutsch</a>
   </br></br>

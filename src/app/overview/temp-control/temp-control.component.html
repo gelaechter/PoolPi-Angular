@@ -1,0 +1,22 @@
+<div class="row pb-4" style="height: 40%; width: 100%;">
+    <div class="col d-md-flex flex-column flex-grow-1
+    justify-content-md-center align-items-md-end" style="text-align: center; height: 100%;">
+        <button mdbRipple type="button" (click)="decreaseTemp()" class="btn btn-dark btn-square-md"><i class="fas fa-angle-down fa-5x"></i></button>
+    </div>
+    <div class="col d-md-flex flex-column flex-grow-0
+    justify-content-md-start align-items-md-center" style="text-align: center; height: 100%;">
+            <mdb-form-control style="height: 45% !important;">
+                <input mdbInput type="text" id="typeNumber" class="form-control btn-square-md h1" style="font-size: calc(1.375rem); font-weight: bold;" [readonly]="true" [value]="goalTemp + '°C'" />
+                <label mdbLabel class="form-label" for="typeNumber">Ziel</label>
+            </mdb-form-control>
+            <div style="height: 10% !important;"></div>
+            <mdb-form-control style="height: 45% !important;">
+                <input mdbInput type="text" id="typeNumber" class="form-control btn-square-md h1" style="font-size: calc(1.375rem); font-weight: bold;" [readonly]="true" [value]="currentTemp + '°C'" />
+                <label mdbLabel class="form-label" for="typeNumber">Temperatur</label>
+            </mdb-form-control>
+    </div>
+    <div class="col d-md-flex flex-column flex-grow-1
+    justify-content-md-center align-items-md-start" style="text-align: center; height: 100%; position: relative;">
+        <button mdbRipple type="button" (click)="increaseTemp()" class="btn btn-dark btn-square-md"><i class="fas fa-angle-up fa-5x"></i></button>
+    </div>
+</div>

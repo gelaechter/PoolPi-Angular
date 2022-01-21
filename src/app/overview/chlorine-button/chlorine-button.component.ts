@@ -1,17 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { doseToTime, isScheduled, Time } from 'src/app/data';
-import { DataService } from '../../data.service';
-import { WebsocketService } from '../../websocket.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { distinctUntilChanged } from "rxjs/operators";
+import { doseToTime, isScheduled, Time } from "src/app/data";
+import { DataService } from "../../data.service";
+import { WebsocketService } from "../../websocket.service";
 
 @Component({
-  selector: 'app-chlorine-button',
-  templateUrl: './chlorine-button.component.html',
-  styleUrls: ['./chlorine-button.component.scss']
+    selector: "app-chlorine-button",
+    templateUrl: "./chlorine-button.component.html",
+    styleUrls: ["./chlorine-button.component.scss"]
 })
 export class ChlorineButtonComponent implements OnInit {
 
-    @Input() size: string = "xl";
+    @Input() size = "xl";
 
     chlorineOn: boolean;
     dose_ml: number;
@@ -21,17 +21,17 @@ export class ChlorineButtonComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.data._chlorineOn.pipe(distinctUntilChanged()).subscribe((on: boolean) => {
+        this.data._pChlorineOn.pipe(distinctUntilChanged()).subscribe((on: boolean) => {
             this.chlorineOn = on;
-        })
+        });
 
-        this.data._quickDoseTime.pipe(distinctUntilChanged()).subscribe((time: Time) => {
+        this.data._pQuickDoseTime.pipe(distinctUntilChanged()).subscribe((time: Time) => {
             this.quickDoseTime = time;
-        })
+        });
 
-        this.data._doses.pipe(distinctUntilChanged()).subscribe((doses: number[]) => {
+        this.data._pDoses.pipe(distinctUntilChanged()).subscribe((doses: number[]) => {
             this.dose_ml = doses[0];
-        })
+        });
     }
 
     onClickButton() {
@@ -49,7 +49,7 @@ export class ChlorineButtonComponent implements OnInit {
 
     scheduled() {
         // returns true if chlorine is currently scheduled
-        return isScheduled(Time.now(), new Map<Time, Time>(Array.from(this.data._chlorineTimings.getValue()).map(([key, value]) => ([key, doseToTime(value as number).add(key)]))));
+        return isScheduled(Time.now(), new Map<Time, Time>(Array.from(this.data._pChlorineTimings.getValue()).map(([key, value]) => ([key, doseToTime(value as number).add(key)]))));
     }
 
 }

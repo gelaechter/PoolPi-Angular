@@ -121,8 +121,8 @@ mdb-tabs,
     }
 }
 
-// This causes the last tab to be aligned right
-mdb-tabs > ul > li:last-child {
+// This causes the last two tabs to be aligned right
+mdb-tabs > ul > li:nth-last-child(2) {
     margin-left: auto;
 }
 
@@ -140,6 +140,14 @@ mdb-tabs > ul > li:last-child {
 
 .btn-success:hover {
     background-color: var(--mdb-success);
+}
+
+.btn-light:hover {
+    background-color: var(--mbd-light);
+}
+
+.btn-dark:hover {
+    background-color: var(--mdb-dark);
 }
 
 .form-control[readonly] {
