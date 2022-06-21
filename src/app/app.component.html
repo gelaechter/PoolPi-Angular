@@ -259,6 +259,15 @@
                 <i class="fas fa-cog fa-lg"></i>
             </span>
         </ng-template>
-        <button mdbRipple type="button" class="btn btn-primary" (click)="changeMode()">Modus Wechseln</button>
+        <div class="row d-md-flex justify-content-center
+        justify-content-md-center mx-0" style="height: 100%; width: 100%;">
+            <div class="col-4">
+                <app-gpio-config></app-gpio-config>
+            </div>
+            <div class="col-4">
+                <button mdbRipple type="button" class="btn btn-primary my-2" (click)="changeMode()">Modus Wechseln</button>
+                <app-sensor-config></app-sensor-config>
+            </div>
+        </div>
     </mdb-tab>
 </mdb-tabs>

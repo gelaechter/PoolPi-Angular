@@ -16,21 +16,21 @@ export class TempControlComponent implements OnInit {
     goalTemp = 0;
 
     ngOnInit(): void {
-        this.data._hCurrentTemp.pipe(distinctUntilChanged()).subscribe((temp: number) => {
+        this.data._sWaterTemp.pipe(distinctUntilChanged()).subscribe((temp: number) => {
             this.currentTemp = temp;
         });
 
-        this.data._hGoalTemp.pipe(distinctUntilChanged()).subscribe((temp: number) => {
+        this.data._pGoalTemp.pipe(distinctUntilChanged()).subscribe((temp: number) => {
             this.goalTemp = temp;
         });
     }
 
     increaseTemp(): void {
-        this.webSocket.hotTubActions.setGoalTemp(this.goalTemp + 1);
+        this.webSocket.poolActions.setGoalTemp(this.goalTemp + 1);
     }
 
     decreaseTemp(): void {
-        this.webSocket.hotTubActions.setGoalTemp(this.goalTemp - 1);
+        this.webSocket.poolActions.setGoalTemp(this.goalTemp - 1);
     }
 
 }

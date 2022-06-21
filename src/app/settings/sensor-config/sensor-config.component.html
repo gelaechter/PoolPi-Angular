@@ -1,0 +1,22 @@
+<mdb-form-control class="my-3">
+    <select mdbInput id="form1" class="form-control">
+        <option *ngFor="let id of ids">{{id}}</option>
+    </select>
+    <label mdbLabel class="form-label" for="form1">Wasser Sensor Id</label>
+</mdb-form-control>
+<mdb-form-control class="my-3">
+    <select mdbInput id="form2" class="form-control">
+        <option *ngFor="let id of ids">{{id}}</option>
+    </select>
+    <label mdbLabel class="form-label" for="form2">Bottich Sensor Id</label>
+</mdb-form-control>
+<mdb-form-control class="my-3">
+    <select mdbInput id="form3" class="form-control">
+        <option *ngFor="let id of ids">{{id}}</option>
+    </select>
+    <label mdbLabel class="form-label" for="form3">Hütte Sensor Id</label>
+</mdb-form-control>
+<mdb-form-control class="my-2">
+    <input mdbInput [value]="sensorPollRate + ''" type="number" id="formControlSm8" class="form-control form-control-sm" />
+    <label mdbLabel class="form-label" for="formControlSm8">Sensor Abtastrate (s)</label>
+</mdb-form-control>

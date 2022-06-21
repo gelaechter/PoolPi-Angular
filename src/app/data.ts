@@ -8,11 +8,13 @@ export class Time {
 
     // new Time based on either minutes, text or a Date
     constructor(time: any) {
-        if (typeof (time) === "number") { this.minutes = time; }
-        else if (typeof (time) === "string") { this.text = time; }
-        else if (time.constructor.name === "Date") {
+        if (typeof time === 'number') {
+            this.minutes = time;
+        } else if (typeof time === 'string') {
+            this.text = time;
+        } else if (time.constructor.name === 'Date') {
             this.text =
-                (time as Date).getHours() + ":" + (time as Date).getMinutes();
+                (time as Date).getHours() + ':' + (time as Date).getMinutes();
         }
     }
 
@@ -22,7 +24,7 @@ export class Time {
 
     public set minutes(minutes: number) {
         if (minutes < 0 || minutes > 1440) {
-            throw new Error("Invalid amount of minutes");
+            throw new Error('Invalid amount of minutes');
         }
         this.time = minutes;
     }
@@ -30,12 +32,16 @@ export class Time {
     public get text(): string {
         const hours = Math.floor(this.minutes / 60);
         const minutes = this.minutes % 60;
-        return String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
+        return (
+            String(hours).padStart(2, '0') +
+            ':' +
+            String(minutes).padStart(2, '0')
+        );
     }
 
     public set text(time: string) {
-        const hours: number = parseInt(time.split(":")[0]);
-        const minutes: number = parseInt(time.split(":")[1]);
+        const hours: number = parseInt(time.split(':')[0]);
+        const minutes: number = parseInt(time.split(':')[1]);
 
         this.time = minutes + hours * 60;
     }
@@ -54,9 +60,11 @@ export class Time {
     }
 
     public fromNow(): Time {
-        if(this.minutes > Time.now().minutes) { // does not loop
+        if (this.minutes > Time.now().minutes) {
+            // does not loop
             return this.subtract(Time.now());
-        }else{ // loops
+        } else {
+            // loops
             return new Time(1440 - Time.now().minutes + this.minutes);
         }
     }
@@ -89,7 +97,7 @@ export class PinConfig {
     public tempSensors = 7;
 }
 
-export class HotTubData { }
+export class HotTubData {}
 
 export enum Section {
     CHLORINE,
@@ -122,12 +130,13 @@ export function isScheduled(time: Time, timings: Map<Time, Time>): boolean {
  */
 export function isInTimeframe(time: Time, start: Time, stop: Time): boolean {
     //Check if the timeframe is simple or loops around a day
-    if (start.minutes > stop.minutes) { // if stop is before start it loops
+    if (start.minutes > stop.minutes) {
+        // if stop is before start it loops
         //check if the point in time happens after start or before stop
-        return (time.minutes >= start.minutes || time.minutes <= stop.minutes);
+        return time.minutes >= start.minutes || time.minutes <= stop.minutes;
     } else {
         //Check if the point in time is inbetween
-        return (time.minutes >= start.minutes && time.minutes <= stop.minutes);
+        return time.minutes >= start.minutes && time.minutes <= stop.minutes;
     }
 }
 
@@ -156,12 +165,12 @@ export function fromJSON(json: string): any {
 function replacer(key, value) {
     if (value instanceof Map) {
         return {
-            dataType: "Map",
+            dataType: 'Map',
             value: Array.from(value.entries()), // or with spread: value: [...value]
         };
     } else if (value instanceof Time) {
         return {
-            dataType: "Time",
+            dataType: 'Time',
             minutes: value.minutes,
         };
     } else {
@@ -171,10 +180,10 @@ function replacer(key, value) {
 
 //function for map serialization from JSON
 function reviver(key, value) {
-    if (typeof value === "object" && value !== null) {
-        if (value.dataType === "Map") {
+    if (typeof value === 'object' && value !== null) {
+        if (value.dataType === 'Map') {
             return new Map(value.value);
-        }else if(value.dataType === "Time") {
+        } else if (value.dataType === 'Time') {
             return new Time(value.minutes);
         }
     }
@@ -182,8 +191,12 @@ function reviver(key, value) {
 }
 
 export function uuidv4(): string {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-        const r = Math.random() * 16 | 0, v = c == "x" ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+        /[xy]/g,
+        function (c) {
+            const r = (Math.random() * 16) | 0,
+                v = c == 'x' ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        }
+    );
 }
