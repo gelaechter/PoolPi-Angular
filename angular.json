@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mdb-angular-ui-kit-free": {
+    "poolpi-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mdb-angular-ui-kit-free",
+            "outputPath": "dist/poolpi-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "mdb-angular-ui-kit-free:build:production"
+              "browserTarget": "poolpi-angular:build:production"
             },
             "development": {
-              "browserTarget": "mdb-angular-ui-kit-free:build:development"
+              "browserTarget": "poolpi-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mdb-angular-ui-kit-free:build"
+            "browserTarget": "poolpi-angular:build"
           }
         },
         "test": {
@@ -117,8 +117,9 @@
       }
     }
   },
-  "defaultProject": "mdb-angular-ui-kit-free",
+  "defaultProject": "poolpi-angular",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@angular-eslint/schematics",
+    "analytics": false
   }
 }
